@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/js/css/index.css" th:href="@{../js/css/index.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+  <ul>
+      <li><a class="active" href="index.html" th:href="@{/user/index}">Home</a></li>
+      <li><a href="upload.html"  th:href="@{/upload}"> Upload Documents</a></li>
+      <li><a href="code.html" th:href="@{/user/code}">Qr-Code Information</a></li>
+      <li><a href="profile.html" th:href="@{'/profile/'+${userName}}">Edit Profile</a></li>
+      <li><a href="changeUserPass.html" th:href="@{'/changeUserPass/'+${userName}}">Edit Username/Password</a></li>
+      <li><a href="contact.html" th:href="@{/contact}">Contact</a></li>
+      <li style="float: right"><a href="/user" th:href="@{/logout}" class="text-white">Logout</a></li>
+  </ul>
+  <h2 style="text-align:center">Welcome To The Vaccine Wallet</h2>
+
+  <div class="card bg-dark text-white">
+      <img class="card-img" src="https://icon-library.com/images/account-information-icon/account-information-icon-10.jpg" alt="Card image">
+      <div class="card-img-overlay">
+        <br><br>
+       <table class="table">
+          <div th:each=" info: ${userList}">
+            <tr>
+              <th>First Name: </th>
+                <td th:text="${info.firstName}">First Name</td>
+            </tr>
+            <tr>
+              <th>Middle Name: </th>
+              <td th:text="${info.middleName}">Middle Name</td>
+            </tr>
+            <tr>
+              <th>Last Name: </th>
+              <td th:text="${info.lastName}">Last Name</td>
+            </tr>
+            <tr>
+              <th>Age: </th>
+              <td th:text="${info.age}">Age</td>
+            </tr>
+            <tr>
+              <th>Phone Number: </th>
+              <td th:text="${info.phoneNumber}">Phone number</td>
+            </tr>
+            <tr>
+              <th>Email: </th>
+              <td th:text="${info.email}">email</td>
+            </tr>
+            <tr>
+              <th>Address: </th>
+              <td th:text="${info.address}">address</td>
+            </tr>
+              <th>Postal Code: </th>
+              <td th:text="${info.postalCode}">Postal Code</td>
+            </tr>
+            <tr>
+              <th>City: </th>
+              <td th:text="${info.city}">city</td>
+            </tr>
+            <tr>
+              <th>Province: </th>
+              <td th:text="${info.province}">Province</td>
+            </tr>
+          </div>
+       </table>
+<br>
+          <button type="button" class="btn btn-danger btn-lg btn-block">
+              <a th:href="@{/user/code}">QR Infomation</a></button>
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Contact Us</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../static/js/css/contact.css" th:href="@{../js/css/contact.css}"/>
+
+
+</head>
+<body>
+
+<ul>
+    <li><a class="active" href="index.html" th:href="@{/user/index}">Home</a></li>
+    <li><a href="upload.html"  th:href="@{/upload}"> Upload Documents</a></li>
+    <li><a href="code.html" th:href="@{/user/code}">Qr-Code Information</a></li>
+    <li><a href="profile.html" th:href="@{'/profile/'+${userName}}">Edit Profile</a></li>
+    <li><a href="changeUserPass.html" th:href="@{'/changeUserPass/'+${userName}}">Edit Username/Password</a></li>
+    <li><a href="contact.html" th:href="@{/contact}">Contact</a></li>
+    <li style="float: right"><a href="/user" th:href="@{/logout}" class="text-white">Logout</a></li>
+</ul>
+
+<section class="w3l-simple-contact-form1">
+    <div class="contact-form section-gap">
+        <div class="wrapper">
+            <div class="text-center">
+                <h1 style="font-size: 40px; ">Contact Us</h1>
+            </div>
+            <div class="contact-form" style="max-width: 450px; margin: 0 auto;">
+                <div class="form-mid">
+                    <div id="error_msg"></div>
+                    <form action="javascript:sendmail()" method="post" id="myForm">
+                        <div class="field">
+                            <input type="text" class="form-control" required name="Name" id="Name" placeholder="Name" >
+                        </div>
+                        <div class="field">
+                            <input type="email" class="form-control" required name="Sender" id="Sender" placeholder="Email"
+                                   >
+                        </div>
+                        <div class="field">
+                            <input type="text" class="form-control" name="Subject" id="Subject" placeholder="Subject"
+                                   >
+                        </div>
+                        <textarea name="Message" class="form-control" required id="Message" placeholder="Message"
+                                  ></textarea>
+
+                        <button type="submit" class="btn btn-contact">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /contact1 -->
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+<script>
+
+    function sendmail(){
+
+        var name = $('#Name').val();
+        var email = $('#Sender').val();
+        var subject = $('#Subject').val();
+        var message = $('#Message').val();
+        var error = document.getElementById("error_msg");
+        var text;
+
+        var Body='Name: '+name+'<br>Email: '+email+'<br>Subject: '+subject+'<br>Message: '+message;
+
+        Email.send({
+            SecureToken:"fbf31702-bb7f-4a4e-9c1c-4ccf17ee777f",
+            To: 'vwallet475@gmail.com',
+            From: "vwallet475@gmail.com",
+            Subject: "New message on contact from "+name,
+            Body: Body
+        }).then(
+            message =>{
+                error.style.padding = "10px";
+                if(message=='OK'){
+                    text = "Successfully Sent. Thank you!"
+                    error.innerHTML = text;
+                    document.getElementById("myForm").reset();
+                }
+                else{
+                    console.error (message);
+                    text = "There is some error sending the message. Please try Again!"
+                    error.innerHTML = text;
+                }
+            }
+        );
+    }
+
+</script>
+</script>
+
+</body>
+</html>
